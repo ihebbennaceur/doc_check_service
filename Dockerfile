@@ -19,7 +19,7 @@ COPY . .
 # Create necessary directories
 RUN mkdir -p staticfiles media
 
-EXPOSE 8001
+EXPOSE 8080
 
-# Start gunicorn (migrations will be run manually from Railway dashboard)
-CMD ["gunicorn", "doccheck_service.wsgi:application", "--bind", "0.0.0.0:8001", "--workers", "3", "--timeout", "120"]
+# Start gunicorn on port 8080 (Railway default)
+CMD ["gunicorn", "doccheck_service.wsgi:application", "--bind", "0.0.0.0:8080", "--workers", "3", "--timeout", "120"]
