@@ -21,8 +21,5 @@ RUN mkdir -p staticfiles media
 
 EXPOSE 8001
 
-# Create entrypoint script
-RUN echo '#!/bin/bash\nset -e\necho "Running migrations..."\npython manage.py migrate\necho "Starting gunicorn..."\ngunicorn doccheck_service.wsgi:application --bind 0.0.0.0:8001 --workers 3 --timeout 120' > /app/entrypoint.sh && chmod +x /app/entrypoint.sh
-
-# Run entrypoint
-CMD ["/app/entrypoint.sh"]
+# Start gunicorn (migrations will be run manually from Railway dashboard)
+CMD ["gunicorn", "doccheck_service.wsgi:application", "--bind", "0.0.0.0:8001", "--workers", "3", "--timeout", "120"]
